@@ -4,7 +4,7 @@ import com.example.SpringBootCRUD.repository.UserRepository;
 import com.example.SpringBootCRUD.model.User;
  import org.springframework.stereotype.Service;
 import java.util.List;
- //Rename the Userserviceimpl to UserService
+ //remove @Transactional annotation
 //make changes to all CRUD operations with userRepository
 
 @Service
