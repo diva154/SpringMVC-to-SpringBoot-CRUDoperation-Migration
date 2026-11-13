@@ -1,7 +1,7 @@
 package com.example.SpringBootCRUD.controller;
 
 import com.example.SpringBootCRUD.model.User;
-import com.example.SpringBootCRUD.service.UserService;
+import com.example.SpringBootCRUD.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     //constructor
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
 
         this.userService = userService;
     }
