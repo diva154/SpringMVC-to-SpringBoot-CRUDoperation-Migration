@@ -1,6 +1,7 @@
 package com.example.SpringBootCRUD.controller;
 
 import com.example.SpringBootCRUD.model.User;
+import com.example.SpringBootCRUD.service.UserService;
 import com.example.SpringBootCRUD.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
-    //constructor
+
     @Autowired
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserService userService) {
 
         this.userService = userService;
     }
@@ -38,8 +39,7 @@ public class UserController {
     public String saveUser(
             @Valid @ModelAttribute("user") User user,
             BindingResult bindingResult) {
-        // If validation fails,return to the form
-        //also update user form
+
         if (bindingResult.hasErrors()) {
             return "user-form";
         }

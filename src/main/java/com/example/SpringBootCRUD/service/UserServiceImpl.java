@@ -1,14 +1,18 @@
 package com.example.SpringBootCRUD.service;
 
+import com.example.SpringBootCRUD.UserNotFoundException;
 import com.example.SpringBootCRUD.repository.UserRepository;
 import com.example.SpringBootCRUD.model.User;
- import org.springframework.stereotype.Service;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
- //remove @Transactional annotation
-//make changes to all CRUD operations with userRepository
+
 
 @Service
-public class UserServiceImpl {
+@Transactional(readOnly = true)
+
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -17,27 +21,34 @@ public class UserServiceImpl {
 
         this.userRepository = userRepository;
     }
-    //get all users
 
+@Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    //get user by ID
+
+    @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
-    //Save user
+
+    @Override
+    @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
     }
 
-    //update user
-    public void updateUser(User user) { userRepository.save(user);
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
-    //delete user
+    @Override
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
